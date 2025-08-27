@@ -42,10 +42,13 @@
     <!-- Botpress Webchat Embed Script -->
     <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
     <script>
-  window.botpressWebChat.init({
-    "botId": "your-bot-id-here",
-    ...
-  });
-</script>
+      window.botpressWebChat.init({
+        "botId": "your-bot-id-here",
+        "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+        "messagingUrl": "https://messaging.botpress.cloud",
+        "clientId": "your-bot-id-here",
+        "botName": "My AI Agent"
+      });
+    </script>
 </body>
 </html>
