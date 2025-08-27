@@ -39,15 +39,17 @@
         <p><strong>Chat with our AI Agent below:</strong></p>
         <!-- The Botpress Chatbot widget will appear as a floating chat bubble -->
     </div>
-    <!-- Botpress Webchat Embed Script -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
+    <!-- Place scripts at the end of body -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
     <script>
-      window.botpressWebChat.init({
-        "botId": "a43827a3-ff9c-4b42-a7e6-4367e19ee897",
-        "hostUrl": "https://cdn.botpress.cloud/webchat/v3.2",
-        "messagingUrl": "https://messaging.botpress.cloud",
-        "clientId": "a43827a3-ff9c-4b42-a7e6-4367e19ee897",
-        "botName": "My AI Agent"
+      window.addEventListener('DOMContentLoaded', function() {
+        window.botpressWebChat.init({
+          "botId": "a43827a3-ff9c-4b42-a7e6-4367e19ee897",
+          "hostUrl": "https://cdn.botpress.cloud/webchat/v3.2",
+          "messagingUrl": "https://messaging.botpress.cloud",
+          "clientId": "a43827a3-ff9c-4b42-a7e6-4367e19ee897",
+          "botName": "My AI Agent"
+        });
       });
     </script>
 </body>
