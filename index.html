@@ -1,63 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>AI Agent Service</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background: #f6f7fb; 
-            color: #222; 
-            max-width: 600px; 
-            margin: 40px auto; 
-            padding: 16px;
-            border-radius: 8px;
-            box-shadow: 0 0 16px rgba(0,0,0,0.07);
-        }
-        h1 { color: #2b50aa; }
-        .services { margin: 24px 0; }
-        .services li { margin-bottom: 8px; }
-        .chatbot { margin-top: 32px; }
-    </style>
+    <title>Botpress Test</title>
 </head>
 <body>
-    <h1>Welcome to My Customer Support</h1>
-    <p>
-        I provide efficient and reliable AI-powered chatbot solutions to help automate your business and customer interactions.
-    </p>
-    <div class="services">
-        <h2>Services Offered:</h2>
-        <ul>
-            <li>24/7 automated customer support chatbots</li>
-            <li>Custom AI agent integration for websites and apps</li>
-            <li>Natural language processing for smarter conversations</li>
-            <li>Analytics and reporting on chatbot performance</li>
-        </ul>
-    </div>
-    <div class="chatbot">
-        <p><strong>Chat with our AI Agent below:</strong></p>
-        <!-- The Botpress Chatbot widget will appear as a floating chat bubble -->
-    </div>
-    <!-- Place scripts at the end of body for proper loading order -->
     <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
     <script>
       window.addEventListener('DOMContentLoaded', function() {
-        // Wait until the Botpress script is loaded
-        function initializeBotpressChat() {
+        function bpInit() {
           if (window.botpressWebChat && window.botpressWebChat.init) {
             window.botpressWebChat.init({
               "botId": "a43827a3-ff9c-4b42-a7e6-4367e19ee897",
               "hostUrl": "https://cdn.botpress.cloud/webchat/v3.2",
               "messagingUrl": "https://messaging.botpress.cloud",
               "clientId": "a43827a3-ff9c-4b42-a7e6-4367e19ee897",
-              "botName": "Hello There"
+              "botName": "My AI Agent"
             });
           } else {
-            setTimeout(initializeBotpressChat, 100);
+            setTimeout(bpInit, 100);
           }
         }
-        initializeBotpressChat();
+        bpInit();
       });
     </script>
 </body>
