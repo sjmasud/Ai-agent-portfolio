@@ -16,13 +16,17 @@
       min-width: 100vw;
       /* Use your fish scale image as background */
       background:
-        url('https://cdn.jsdelivr.net/gh/sjmasud/Ai-agent-portfolio/files/Test.jpg') no-repeat center center fixed;
+        linear-gradient(135deg, #0c2340 0%, #1fa187 45%, #f26b8a 85%, #f7f7fa 100%),
+        url('https://cdn.jsdelivr.net/gh/sjmasud/image-assets@main/arapaima-scales-bg.jpg');
+      background-blend-mode: overlay;
+      background-repeat: no-repeat;
       background-size: cover;
       font-family: Arial, sans-serif;
       color: #fff;
       position: relative;
       overflow-x: hidden;
       cursor: default;
+      transition: background 0.7s;
     }
     /* The moving light overlay for mousemove effect */
     .gradient-hover {
@@ -31,9 +35,10 @@
       left: 0; top: 0; width: 100vw; height: 100vh;
       z-index: 0;
       transition: background 0.25s;
-      background: radial-gradient(circle at 50% 50%, rgba(120,255,255,0.24) 0%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.28) 100%);
+      background: radial-gradient(circle at 50% 50%, rgba(120,255,255,0.30) 0%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.28) 100%);
       mix-blend-mode: lighten;
     }
+    /* All your previous styles remain unchanged below */
     .center-content {
       min-height: 100vh;
       display: flex;
@@ -272,7 +277,7 @@
     document.addEventListener('mousemove', function(e) {
       const x = (e.clientX / window.innerWidth) * 100;
       const y = (e.clientY / window.innerHeight) * 100;
-      overlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(120,255,255,0.24) 0%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.28) 100%)`;
+      overlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(120,255,255,0.30) 0%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.28) 100%)`;
     });
 
     // Floating Botpress Widget logic
