@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Agent Service - Interactive Scale Background</title>
+  <title>AI Agent Service - Gradient Texture & Botpress Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     html, body {
@@ -14,45 +14,27 @@
     body {
       min-height: 100vh;
       min-width: 100vw;
-      /* Background is now simpler, as the scales will cover it */
-      background: #0d121c; /* A solid dark blue-black color */
+      /* Fish scale effect background using your image and a semi-transparent texture overlay */
+      background:
+        linear-gradient(135deg, rgba(24,34,54,0.92) 0%, #2b50aa 70%, #fda085 100%),
+        url('https://cdn.jsdelivr.net/gh/sjmasud/Ai-agent-portfolio/files/Test.jpg'),
+        url('https://www.transparenttextures.com/patterns/cubes.png');
+      background-blend-mode: overlay, normal;
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-size: cover, cover, auto;
       font-family: Arial, sans-serif;
       color: #fff;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
       cursor: default;
+      transition: background 0.7s;
     }
-
-    /* --- NEW CSS FOR THE INTERACTIVE FISH SCALES --- */
-    #scale-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0; /* Places scales behind content, but above body bg */
-      display: grid;
-      place-items: center; /* Helps center the scales in the grid cells */
-    }
-    .scale {
-      /* This creates the circular scale shape */
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      
-      /* This radial-gradient mimics the lighting from your image */
-      background: radial-gradient(circle at 30% 30%, #40e8ff, #0077be 70%, #032b43 100%);
-      
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.5); /* Adds a subtle inner shadow for depth */
-      transition: transform 0.2s ease-out; /* Smoothly returns scales to position */
-    }
-    /* --- END OF NEW CSS --- */
-
+    /* The moving light overlay for mousemove effect */
     .gradient-hover {
       pointer-events: none;
       position: fixed;
       left: 0; top: 0; width: 100vw; height: 100vh;
-      z-index: 1;
+      z-index: 0;
       transition: background 0.25s;
       background: radial-gradient(circle at 50% 50%, rgba(120,255,255,0.27) 0%, rgba(0,0,0,0.14) 60%, rgba(0,0,0,0.38) 100%);
       mix-blend-mode: lighten;
@@ -66,7 +48,7 @@
       color: #fff;
       font-size: 2rem;
       text-shadow: 0 2px 16px #0006;
-      z-index: 2; /* Ensure content is above the scales and gradient hover */
+      z-index: 1;
       position: relative;
       text-align: center;
     }
@@ -146,11 +128,83 @@
       transition: background 0.2s;
     }
     .share-link a:hover { background: #1741b6; }
-    /* All your Botpress styles remain the same */
-    .botpress-container-fixed, .botpress-launcher, .botpress-icon, .botpress-iframe-wrapper, .botpress-iframe-wrapper.active, @keyframes slideInBotpress, .botpress-iframe-wrapper iframe, .botpress-close, .botpress-close:hover {
-        /* Styles here */
+    /* Botpress Widget Button (fixed to right) */
+    .botpress-container-fixed {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
     }
-     .botpress-container-fixed { position: fixed; bottom: 32px; right: 32px; z-index: 10000; display: flex; flex-direction: column; align-items: flex-end; } .botpress-launcher { background: #2b50aa; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 2px 10px #0004; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; margin-bottom: 10px; } .botpress-launcher:hover { box-shadow: 0 6px 20px #1c245d66; transform: scale(1.13); } .botpress-icon { width: 34px; height: 34px; } .botpress-iframe-wrapper { display: none; position: relative; transition: opacity 0.22s; width: 360px; max-width: 94vw; height: 520px; max-height: 78vh; margin-bottom: 0; } .botpress-iframe-wrapper.active { display: block; animation: slideInBotpress 0.3s; } @keyframes slideInBotpress { from { opacity: 0; transform: translateY(50px) scale(0.93);} to { opacity: 1; transform: translateY(0) scale(1);} } .botpress-iframe-wrapper iframe { width: 100%; height: 100%; border-radius: 16px; border: none; box-shadow: 0 8px 32px rgba(0,0,0,0.19); background: #fff; } .botpress-close { position: absolute; top: 2px; right: 10px; z-index: 10; background: #fff; color: #2b50aa; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 20px; cursor: pointer; box-shadow: 0 2px 4px #0002; transition: background 0.2s, color 0.2s; } .botpress-close:hover { background: #2b50aa; color: #fff; }
+    .botpress-launcher {
+      background: #2b50aa;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px #0004;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+      margin-bottom: 10px;
+    }
+    .botpress-launcher:hover {
+      box-shadow: 0 6px 20px #1c245d66;
+      transform: scale(1.13);
+    }
+    .botpress-icon {
+      width: 34px;
+      height: 34px;
+    }
+    .botpress-iframe-wrapper {
+      display: none;
+      position: relative;
+      transition: opacity 0.22s;
+      width: 360px;
+      max-width: 94vw;
+      height: 520px;
+      max-height: 78vh;
+      margin-bottom: 0;
+    }
+    .botpress-iframe-wrapper.active {
+      display: block;
+      animation: slideInBotpress 0.3s;
+    }
+    @keyframes slideInBotpress {
+      from { opacity: 0; transform: translateY(50px) scale(0.93);}
+      to   { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .botpress-iframe-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.19);
+      background: #fff;
+    }
+    .botpress-close {
+      position: absolute;
+      top: 2px;
+      right: 10px;
+      z-index: 10;
+      background: #fff;
+      color: #2b50aa;
+      border: none;
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px #0002;
+      transition: background 0.2s, color 0.2s;
+    }
+    .botpress-close:hover {
+      background: #2b50aa;
+      color: #fff;
+    }
     @media (max-width: 700px) {
       .center-content { font-size: 1.1rem; }
       .main-description { font-size: 1rem; padding: 0 8px;}
@@ -165,8 +219,6 @@
   </style>
 </head>
 <body>
-  <div id="scale-container"></div>
-
   <div class="gradient-hover" id="gradientHover"></div>
   <div class="center-content">
     <h1>Welcome to My Customer Support</h1>
@@ -183,19 +235,44 @@
       </ul>
     </div>
     <div class="channels">
-      <a href="https://wa.me/8801329749922" target="_blank" title="WhatsApp" style="background:#25d366;"><svg viewBox="0 0 32 32" fill="#25d366"><circle cx="16" cy="16" r="16" fill="#25d366"/><path d="M7.1 24.7l1.5-5.4c-1-1.7-1.6-3.7-1.6-5.7C7 8.8 11 5 16 5s9 3.8 9 8.6-4 8.6-9 8.6c-1.5 0-2.9-.3-4.2-.9l-5.5 1.5z" fill="#fff"/><path d="M16 7c-4 0-7.2 2.9-7.2 6.6 0 1.8.7 3.5 1.9 4.7l-.9 3.1 3.2-.8c1.2.6 2.5 1 3.9 1 4 0 7.2-2.9 7.2-6.6S20 7 16 7zm3.9 10c-.2.6-1 .9-1.8.9-.3 0-.6 0-.9-.1-1.6-.5-3-1.7-3.7-3.1-.2-.3-.3-.7-.2-1 .1-.4.5-.7.9-.8h.9c.1 0 .2 0 .3.2.2.5.5 1 .8 1.4.2.2.2.5 0 .7-.1.2-.3.4-.4.6.3.4.7.7 1.2.9.2 0 .3 0 .4-.1.2-.1.4-.2.6-.1.2.1.4.5.6.8.1.3.2.5.1.8z" fill="#25d366"/></svg></a>
-       <a href="https://t.me/+Ut_TTMcySL8zNzA9" target="_blank" title="Telegram" style="background:#229ED9;"><svg viewBox="0 0 32 32" fill="#229ED9"><circle cx="16" cy="16" r="16" fill="#229ED9"/><path d="M24.7 9.7l-2.4 11.2c-.2.8-.6 1-1.3.6l-3.5-2.6-1.7 1.6c-.2.2-.5.3-.7.3l.3-4.2 7.7-7c.3-.3-.1-.5-.5-.4l-9.6 3.7-4.1-1.3c-.9-.3-.9-.9.2-1.3l16-6c.8-.3 1.5.2 1.2 1.3z" fill="#fff"/></svg></a>
-       <a href="https://m.me/Imsjmasud" target="_blank" title="Messenger" style="background:#0084ff;"><svg viewBox="0 0 32 32" fill="#0084ff"><circle cx="16" cy="16" r="16" fill="#0084ff"/><path d="M11.5 23.3l.6-3.1c-.9-1-1.3-2.1-1.3-3.3 0-3.1 3-5.6 6.7-5.6 3.8 0 6.7 2.5 6.7 5.6 0 3.1-3 5.6-6.7 5.6-1.1 0-2.1-.2-3-.6l-3.4.9zm6.9-5.7l-2.6-2-3.7 3.7 5.6-2.4 2.7 2 3.7-3.7-5.7 2.4z" fill="#fff"/></svg></a>
-       <a href="https://instagram.com/Imsjmasud" target="_blank" title="Instagram" style="background:#E1306C;"><svg viewBox="0 0 32 32" fill="#E1306C"><circle cx="16" cy="16" r="16" fill="#E1306C"/><g fill="#fff"><circle cx="16" cy="16" r="5.5"/><circle cx="23.5" cy="8.5" r="1.2"/><path d="M16 11.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 7.5a3 3 0 110-6 3 3 0 010 6z"/></g></svg></a>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/8801329749922" target="_blank" title="WhatsApp" style="background:#25d366;">
+        <svg viewBox="0 0 32 32" fill="#25d366"><circle cx="16" cy="16" r="16" fill="#25d366"/><path d="M7.1 24.7l1.5-5.4c-1-1.7-1.6-3.7-1.6-5.7C7 8.8 11 5 16 5s9 3.8 9 8.6-4 8.6-9 8.6c-1.5 0-2.9-.3-4.2-.9l-5.5 1.5z" fill="#fff"/><path d="M16 7c-4 0-7.2 2.9-7.2 6.6 0 1.8.7 3.5 1.9 4.7l-.9 3.1 3.2-.8c1.2.6 2.5 1 3.9 1 4 0 7.2-2.9 7.2-6.6S20 7 16 7zm3.9 10c-.2.6-1 .9-1.8.9-.3 0-.6 0-.9-.1-1.6-.5-3-1.7-3.7-3.1-.2-.3-.3-.7-.2-1 .1-.4.5-.7.9-.8h.9c.1 0 .2 0 .3.2.2.5.5 1 .8 1.4.2.2.2.5 0 .7-.1.2-.3.4-.4.6.3.4.7.7 1.2.9.2 0 .3 0 .4-.1.2-.1.4-.2.6-.1.2.1.4.5.6.8.1.3.2.5.1.8z" fill="#25d366"/></svg>
+      </a>
+      <!-- Telegram -->
+      <a href="https://t.me/+Ut_TTMcySL8zNzA9" target="_blank" title="Telegram" style="background:#229ED9;">
+        <svg viewBox="0 0 32 32" fill="#229ED9"><circle cx="16" cy="16" r="16" fill="#229ED9"/><path d="M24.7 9.7l-2.4 11.2c-.2.8-.6 1-1.3.6l-3.5-2.6-1.7 1.6c-.2.2-.5.3-.7.3l.3-4.2 7.7-7c.3-.3-.1-.5-.5-.4l-9.6 3.7-4.1-1.3c-.9-.3-.9-.9.2-1.3l16-6c.8-.3 1.5.2 1.2 1.3z" fill="#fff"/></svg>
+      </a>
+      <!-- Messenger -->
+      <a href="https://m.me/Imsjmasud" target="_blank" title="Messenger" style="background:#0084ff;">
+        <svg viewBox="0 0 32 32" fill="#0084ff"><circle cx="16" cy="16" r="16" fill="#0084ff"/><path d="M11.5 23.3l.6-3.1c-.9-1-1.3-2.1-1.3-3.3 0-3.1 3-5.6 6.7-5.6 3.8 0 6.7 2.5 6.7 5.6 0 3.1-3 5.6-6.7 5.6-1.1 0-2.1-.2-3-.6l-3.4.9zm6.9-5.7l-2.6-2-3.7 3.7 5.6-2.4 2.7 2 3.7-3.7-5.7 2.4z" fill="#fff"/></svg>
+      </a>
+      <!-- Instagram -->
+      <a href="https://instagram.com/Imsjmasud" target="_blank" title="Instagram" style="background:#E1306C;">
+        <svg viewBox="0 0 32 32" fill="#E1306C"><circle cx="16" cy="16" r="16" fill="#E1306C"/><g fill="#fff"><circle cx="16" cy="16" r="5.5"/><circle cx="23.5" cy="8.5" r="1.2"/><path d="M16 11.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 7.5a3 3 0 110-6 3 3 0 010 6z"/></g></svg>
+      </a>
     </div>
     <div class="share-link">
       <a href="https://cdn.botpress.cloud/webchat/v3.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/08/27/05/20250827051045-X296SG6U.json" target="_blank" rel="noopener">Open Botpress Chat in New Tab</a>
     </div>
   </div>
-  <div class="botpress-container-fixed" id="botpress-container-fixed"> <button class="botpress-launcher" id="botpress-launcher" title="Chat with Botpress"><svg class="botpress-icon" viewBox="0 0 32 32" fill="#fff"><circle cx="16" cy="16" r="16" fill="#2b50aa"/><ellipse cx="12" cy="16" rx="2" ry="3" fill="#fff"/><ellipse cx="20" cy="16" rx="2" ry="3" fill="#fff"/><ellipse cx="16" cy="22" rx="5" ry="2" fill="#fff"/></svg></button> <div class="botpress-iframe-wrapper" id="botpress-iframe-wrapper"> <button class="botpress-close" id="botpress-close" title="Close">&times;</button> <iframe id="botpress-iframe" src="https://cdn.botpress.cloud/webchat/v3.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/08/27/05/20250827051045-X296SG6U.json" allow="clipboard-write"></iframe> </div> </div>
-
+  <!-- Botpress Widget fixed at right bottom -->
+  <div class="botpress-container-fixed" id="botpress-container-fixed">
+    <button class="botpress-launcher" id="botpress-launcher" title="Chat with Botpress">
+      <svg class="botpress-icon" viewBox="0 0 32 32" fill="#fff">
+        <circle cx="16" cy="16" r="16" fill="#2b50aa"/>
+        <ellipse cx="12" cy="16" rx="2" ry="3" fill="#fff"/>
+        <ellipse cx="20" cy="16" rx="2" ry="3" fill="#fff"/>
+        <ellipse cx="16" cy="22" rx="5" ry="2" fill="#fff"/>
+      </svg>
+    </button>
+    <div class="botpress-iframe-wrapper" id="botpress-iframe-wrapper">
+      <button class="botpress-close" id="botpress-close" title="Close">&times;</button>
+      <iframe id="botpress-iframe" src="https://cdn.botpress.cloud/webchat/v3.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/08/27/05/20250827051045-X296SG6U.json" allow="clipboard-write"></iframe>
+    </div>
+  </div>
   <script>
-    // Mousemove effect for moving gradient light (remains the same)
+    // Mousemove effect for moving gradient light
     const overlay = document.getElementById('gradientHover');
     document.addEventListener('mousemove', function(e) {
       const x = (e.clientX / window.innerWidth) * 100;
@@ -203,70 +280,30 @@
       overlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(120,255,255,0.27) 0%, rgba(0,0,0,0.14) 60%, rgba(0,0,0,0.38) 100%)`;
     });
 
-    // --- NEW SCRIPT FOR INTERACTIVE SCALES ---
-    const container = document.getElementById('scale-container');
-    let scales = [];
-
-    // --- You can customize these values! ---
-    const scaleSize = 60; // The diameter of each scale in pixels
-    const scaleOverlap = 35; // How much the scales overlap. Should be > half of scaleSize
-    const radiusOfEffect = 250; // How far from the mouse the effect should reach (in pixels)
-    const pushFactor = 50; // How strongly the scales are pushed away (in pixels)
-
-    function createScaleGrid() {
-      container.innerHTML = '';
-      scales = [];
-      const columns = Math.ceil(window.innerWidth / scaleOverlap);
-      const rows = Math.ceil(window.innerHeight / scaleOverlap);
-
-      container.style.gridTemplateColumns = `repeat(${columns}, ${scaleOverlap}px)`;
-      container.style.gridTemplateRows = `repeat(${rows}, ${scaleOverlap}px)`;
-
-      for (let i = 0; i < columns * rows; i++) {
-        const scale = document.createElement('div');
-        scale.classList.add('scale');
-        container.appendChild(scale);
-        scales.push(scale);
-      }
-    }
-
-    document.addEventListener('mousemove', function(e) {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
-      scales.forEach(scale => {
-        const rect = scale.getBoundingClientRect();
-        const scaleCenterX = rect.left + rect.width / 2;
-        const scaleCenterY = rect.top + rect.height / 2;
-
-        const distance = Math.sqrt(
-          Math.pow(mouseX - scaleCenterX, 2) + Math.pow(mouseY - scaleCenterY, 2)
-        );
-
-        if (distance < radiusOfEffect) {
-          const angle = Math.atan2(scaleCenterY - mouseY, scaleCenterX - mouseX);
-          const pushAmount = (1 - distance / radiusOfEffect) * pushFactor;
-          
-          const moveX = Math.cos(angle) * pushAmount;
-          const moveY = Math.sin(angle) * pushAmount;
-
-          scale.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        } else {
-          scale.style.transform = 'translate(0, 0)';
-        }
-      });
+    // Botpress Widget logic
+    const launcher = document.getElementById('botpress-launcher');
+    const wrapper = document.getElementById('botpress-iframe-wrapper');
+    const closeBtn = document.getElementById('botpress-close');
+    let isOpen = false;
+    launcher.addEventListener('click', function(e) {
+      e.stopPropagation();
+      wrapper.classList.add('active');
+      isOpen = true;
     });
-
-    // Recreate the grid if the window is resized
-    window.addEventListener('resize', createScaleGrid);
-
-    // Initial creation of the grid
-    createScaleGrid();
-    // --- END OF NEW SCRIPT ---
-
-    // Botpress Widget logic (remains the same)
-    const launcher = document.getElementById('botpress-launcher'); // and so on...
-    const wrapper = document.getElementById('botpress-iframe-wrapper'); const closeBtn = document.getElementById('botpress-close'); let isOpen = false; launcher.addEventListener('click', function(e) { e.stopPropagation(); wrapper.classList.add('active'); isOpen = true; }); closeBtn.addEventListener('click', function(e) { e.stopPropagation(); wrapper.classList.remove('active'); isOpen = false; }); document.addEventListener('click', function(e) { if (isOpen && !wrapper.contains(e.target) && e.target !== launcher) { wrapper.classList.remove('active'); isOpen = false; } }); wrapper.addEventListener('click', function(e) { e.stopPropagation(); });
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      wrapper.classList.remove('active');
+      isOpen = false;
+    });
+    // Click outside chat closes it
+    document.addEventListener('click', function(e) {
+      if (isOpen && !wrapper.contains(e.target) && e.target !== launcher) {
+        wrapper.classList.remove('active');
+        isOpen = false;
+      }
+    });
+    // Prevent closing when clicking inside iframe or launcher
+    wrapper.addEventListener('click', function(e) { e.stopPropagation(); });
   </script>
 </body>
 </html>
