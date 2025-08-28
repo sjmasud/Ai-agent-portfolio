@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Agent Service - Arapaima Gradient & Floating Botpress Widget</title>
+  <title>AI Agent Service - Arapaima Fish Scale Gradient & Floating Botpress Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     html, body {
@@ -13,28 +13,26 @@
     }
     body {
       min-height: 100vh;
-      /* Arapaima Fish Gradient + Scales Texture */
-      background:
-        linear-gradient(135deg, #0c2340 0%, #1fa187 45%, #f26b8a 85%, #f7f7fa 100%),
-        url('data:image/svg+xml;utf8,<svg viewBox="0 0 80 80" width="80" height="80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="38" ry="38" fill="%231fa187" fill-opacity="0.12"/><ellipse cx="40" cy="40" rx="28" ry="28" fill="%23f26b8a" fill-opacity="0.10"/><ellipse cx="40" cy="40" rx="18" ry="18" fill="%23f7f7fa" fill-opacity="0.09"/><ellipse cx="40" cy="40" rx="9" ry="9" fill="%230c2340" fill-opacity="0.09"/></svg>');
-      background-blend-mode: overlay;
-      background-repeat: repeat;
-      background-size: cover, 140px 140px;
-      font-family: Arial, sans-serif;
-      color: #fff;
-      cursor: default;
+      min-width: 100vw;
+      /* Fish scales as background image, cover entire page */
+      background: url('https://cdn.jsdelivr.net/gh/sjmasud/image-assets@main/arapaima-scales-bg.jpg') repeat;
+      background-size: cover;
       position: relative;
+      cursor: default;
+      transition: background 0.4s;
       overflow-x: hidden;
-      transition: background 0.7s;
+      /* fallback color */
+      background-color: #072932;
     }
-    /* Background hover effect */
-    body:hover {
-      background:
-        linear-gradient(120deg, #1fa187 0%, #0c2340 55%, #f26b8a 95%, #f7f7fa 100%),
-        url('data:image/svg+xml;utf8,<svg viewBox="0 0 80 80" width="80" height="80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="38" ry="38" fill="%23f26b8a" fill-opacity="0.13"/><ellipse cx="40" cy="40" rx="28" ry="28" fill="%231fa187" fill-opacity="0.11"/><ellipse cx="40" cy="40" rx="18" ry="18" fill="%230c2340" fill-opacity="0.11"/><ellipse cx="40" cy="40" rx="9" ry="9" fill="%23f7f7fa" fill-opacity="0.07"/></svg>');
-      background-blend-mode: overlay;
-      background-repeat: repeat;
-      background-size: cover, 140px 140px;
+    /* The moving light overlay for mousemove effect */
+    .gradient-hover {
+      pointer-events: none;
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      transition: background 0.25s;
+      background: radial-gradient(circle at 50% 50%, rgba(120,255,255,0.27) 0%, rgba(0,0,0,0.14) 60%, rgba(0,0,0,0.38) 100%);
+      mix-blend-mode: lighten;
     }
     .center-content {
       min-height: 100vh;
@@ -42,10 +40,10 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: #fff;
+      color: #eafeff;
       font-size: 2rem;
-      text-shadow: 0 2px 16px #0006;
-      z-index: 1;
+      text-shadow: 0 2px 16px #002a2a;
+      z-index: 2;
       position: relative;
       text-align: center;
     }
@@ -53,32 +51,36 @@
       margin: 0 0 32px 0;
       font-size: 1.35rem;
       max-width: 600px;
-      color: #fff;
+      color: #eafeff;
       font-weight: 400;
       text-align: center;
       line-height: 1.6;
       letter-spacing: 0.01em;
       box-sizing: border-box;
+      text-shadow: 0 2px 12px #022c31;
     }
     h1 { margin-bottom: 0.5em; }
     .services {
-      background:rgba(255,255,255,0.13);
+      background:rgba(0,0,0,0.14);
       padding:16px 32px;
       border-radius:14px;
-      box-shadow: 0 4px 24px #0002;
+      box-shadow: 0 4px 24px #0003;
       margin-bottom: 32px;
+      color: #d6fcff;
+      border: 1px solid rgba(55,255,255,0.07);
     }
     .services h2 {
-      color:#fff;
+      color:#eafeff;
       margin-bottom:0.5em;
       font-size:1.4em;
+      text-shadow:0 1px 8px #0e353d;
     }
     .services ul {
       margin:0;
       padding:0 0 0 1.2em;
       text-align: left;
     }
-    .services li { color: #fff; }
+    .services li { color: #d6fcff; }
     .channels {
       margin: 40px 0 32px 0;
       display: flex;
@@ -97,14 +99,14 @@
       border-radius: 50%;
       background: #fff;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: box-shadow 0.2s, transform 0.2s;
+      transition: box-shadow 0.2s, transform 0.22s;
       text-decoration: none;
       border: none;
       position: relative;
       cursor: pointer;
     }
     .channels a:hover {
-      box-shadow: 0 4px 16px rgba(43,80,170,0.18), 0 0 0 3px #1fa18766;
+      box-shadow: 0 4px 16px rgba(43,80,170,0.22), 0 0 0 3px #1fa18766;
       transform: scale(1.10);
     }
     .channels svg { width: 28px; height: 28px; }
@@ -123,6 +125,7 @@
       font-weight: bold;
       text-decoration: none;
       transition: background 0.2s;
+      box-shadow:0 2px 16px #0c234044;
     }
     .share-link a:hover { background: #0c2340; }
     /* Floating Botpress Widget Button */
@@ -213,10 +216,12 @@
       .botpress-launcher { width: 48px; height: 48px;}
       .botpress-icon { width: 22px; height: 22px;}
       .botpress-iframe-wrapper { width: 94vw; height: 80vw; min-height: 320px; }
+      .services{padding:8px 2vw;}
     }
   </style>
 </head>
 <body>
+  <div class="gradient-hover" id="gradientHover"></div>
   <div class="center-content">
     <h1>Welcome to My Customer Support</h1>
     <div class="main-description">
@@ -269,6 +274,14 @@
     </div>
   </div>
   <script>
+    // Mousemove effect for moving gradient light
+    const overlay = document.getElementById('gradientHover');
+    document.addEventListener('mousemove', function(e) {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      overlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(120,255,255,0.27) 0%, rgba(0,0,0,0.14) 60%, rgba(0,0,0,0.38) 100%)`;
+    });
+
     // Floating Botpress Widget logic
     const launcher = document.getElementById('botpress-launcher');
     const wrapper = document.getElementById('botpress-iframe-wrapper');
