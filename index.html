@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Agent Service - Smooth Dark Blue Scales</title>
-  <meta name="description" content="AI-powered chatbots and agent solutions with a smooth, interactive dark blue fish scale background.">
+  <title>AI Agent Service - Gradient Texture & Botpress Widget</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     html, body {
       height: 100%;
@@ -15,44 +14,29 @@
     body {
       min-height: 100vh;
       min-width: 100vw;
-      background: #091522 url('https://cdn.jsdelivr.net/gh/sjmasud/Ai-agent-portfolio/files/Test.jpg') no-repeat center center fixed;
-      background-size: cover;
+      /* Fish scale effect background using your image and a semi-transparent texture overlay */
+      background:
+        linear-gradient(135deg, rgba(24,34,54,0.92) 0%, #2b50aa 70%, #fda085 100%),
+        url('https://cdn.jsdelivr.net/gh/sjmasud/Ai-agent-portfolio/files/Test.jpg'),
+        url('https://www.transparenttextures.com/patterns/cubes.png');
+      background-blend-mode: overlay, normal;
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-size: cover, cover, auto;
       font-family: Arial, sans-serif;
       color: #fff;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
       cursor: default;
+      transition: background 0.7s;
     }
-
-    #scale-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      display: grid;
-      pointer-events: none;
-    }
-    .scale {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #3a668a 0%, #1a2a3a 60%, #091522 100%);
-      box-shadow: 0 2px 8px #0e254066, inset 0 0 10px #0c233755;
-      transition:
-        transform 0.13s cubic-bezier(.39,1.6,.56,1),
-        box-shadow 0.2s;
-      opacity: 0.92;
-    }
-
+    /* The moving light overlay for mousemove effect */
     .gradient-hover {
       pointer-events: none;
       position: fixed;
       left: 0; top: 0; width: 100vw; height: 100vh;
-      z-index: 1;
+      z-index: 0;
       transition: background 0.25s;
-      background: radial-gradient(circle at 50% 50%, rgba(44,128,192,0.18) 0%, rgba(0,0,0,0.24) 60%, rgba(0,0,0,0.5) 100%);
+      background: radial-gradient(circle at 50% 50%, rgba(120,255,255,0.27) 0%, rgba(0,0,0,0.14) 60%, rgba(0,0,0,0.38) 100%);
       mix-blend-mode: lighten;
     }
     .center-content {
@@ -64,7 +48,7 @@
       color: #fff;
       font-size: 2rem;
       text-shadow: 0 2px 16px #0006;
-      z-index: 2;
+      z-index: 1;
       position: relative;
       text-align: center;
     }
@@ -96,24 +80,8 @@
       margin:0;
       padding:0 0 0 1.2em;
       text-align: left;
-      list-style: none;
     }
-    .services li {
-      color: #fff;
-      margin-bottom: 18px;
-      text-align: left;
-      font-size: 1.08em;
-      position: relative;
-      padding-left: 1.6em;
-    }
-    .services li::before {
-      content: "💡";
-      position: absolute;
-      left: 0;
-      top: 0.05em;
-      font-size: 1.1em;
-      opacity: 0.8;
-    }
+    .services li { color: #fff; }
     .channels {
       margin: 40px 0 32px 0;
       display: flex;
@@ -151,7 +119,7 @@
       z-index: 10;
     }
     .share-link a {
-      background: #3a668a;
+      background: #2b50aa;
       color: #fff;
       padding: 12px 24px;
       border-radius: 24px;
@@ -159,7 +127,8 @@
       text-decoration: none;
       transition: background 0.2s;
     }
-    .share-link a:hover { background: #091522; }
+    .share-link a:hover { background: #1741b6; }
+    /* Botpress Widget Button (fixed to right) */
     .botpress-container-fixed {
       position: fixed;
       bottom: 32px;
@@ -170,7 +139,7 @@
       align-items: flex-end;
     }
     .botpress-launcher {
-      background: #3a668a;
+      background: #2b50aa;
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -184,7 +153,7 @@
       margin-bottom: 10px;
     }
     .botpress-launcher:hover {
-      box-shadow: 0 6px 20px #09152280;
+      box-shadow: 0 6px 20px #1c245d66;
       transform: scale(1.13);
     }
     .botpress-icon {
@@ -223,7 +192,7 @@
       right: 10px;
       z-index: 10;
       background: #fff;
-      color: #3a668a;
+      color: #2b50aa;
       border: none;
       border-radius: 50%;
       width: 28px; height: 28px;
@@ -233,7 +202,7 @@
       transition: background 0.2s, color 0.2s;
     }
     .botpress-close:hover {
-      background: #3a668a;
+      background: #2b50aa;
       color: #fff;
     }
     @media (max-width: 700px) {
@@ -246,12 +215,10 @@
       .botpress-launcher { width: 48px; height: 48px;}
       .botpress-icon { width: 22px; height: 22px;}
       .botpress-iframe-wrapper { width: 94vw; height: 80vw; min-height: 320px; }
-      .services li { font-size: 1em; }
     }
   </style>
 </head>
 <body>
-  <div id="scale-container" aria-hidden="true"></div>
   <div class="gradient-hover" id="gradientHover"></div>
   <div class="center-content">
     <h1>Welcome to My Customer Support</h1>
@@ -261,28 +228,26 @@
     <div class="services">
       <h2>Services Offered:</h2>
       <ul>
-        <li><strong>24/7 Intelligent Support</strong><br>
-          Instantly answer customer questions at any time with reliable, automated chatbots that never sleep.</li>
-        <li><strong>Seamless AI Integration</strong><br>
-          Add smart AI agents to your website or mobile app for smooth, branded customer experiences.</li>
-        <li><strong>Advanced Natural Language Understanding</strong><br>
-          Enable human-like conversations using the latest language processing technology.</li>
-        <li><strong>Insightful Analytics & Performance Tracking</strong><br>
-          Monitor conversations, discover trends, and optimize your chatbot’s success with detailed reports.</li>
-        <li><strong>Personalized Solutions for Your Business</strong><br>
-          Get custom AI agents designed specifically for your industry, audience, and business needs.</li>
+        <li>24/7 automated customer support chatbots</li>
+        <li>Custom AI agent integration for websites and apps</li>
+        <li>Natural language processing for smarter conversations</li>
+        <li>Analytics and reporting on chatbot performance</li>
       </ul>
     </div>
     <div class="channels">
+      <!-- WhatsApp -->
       <a href="https://wa.me/8801329749922" target="_blank" title="WhatsApp" style="background:#25d366;">
         <svg viewBox="0 0 32 32" fill="#25d366"><circle cx="16" cy="16" r="16" fill="#25d366"/><path d="M7.1 24.7l1.5-5.4c-1-1.7-1.6-3.7-1.6-5.7C7 8.8 11 5 16 5s9 3.8 9 8.6-4 8.6-9 8.6c-1.5 0-2.9-.3-4.2-.9l-5.5 1.5z" fill="#fff"/><path d="M16 7c-4 0-7.2 2.9-7.2 6.6 0 1.8.7 3.5 1.9 4.7l-.9 3.1 3.2-.8c1.2.6 2.5 1 3.9 1 4 0 7.2-2.9 7.2-6.6S20 7 16 7zm3.9 10c-.2.6-1 .9-1.8.9-.3 0-.6 0-.9-.1-1.6-.5-3-1.7-3.7-3.1-.2-.3-.3-.7-.2-1 .1-.4.5-.7.9-.8h.9c.1 0 .2 0 .3.2.2.5.5 1 .8 1.4.2.2.2.5 0 .7-.1.2-.3.4-.4.6.3.4.7.7 1.2.9.2 0 .3 0 .4-.1.2-.1.4-.2.6-.1.2.1.4.5.6.8.1.3.2.5.1.8z" fill="#25d366"/></svg>
       </a>
+      <!-- Telegram -->
       <a href="https://t.me/+Ut_TTMcySL8zNzA9" target="_blank" title="Telegram" style="background:#229ED9;">
         <svg viewBox="0 0 32 32" fill="#229ED9"><circle cx="16" cy="16" r="16" fill="#229ED9"/><path d="M24.7 9.7l-2.4 11.2c-.2.8-.6 1-1.3.6l-3.5-2.6-1.7 1.6c-.2.2-.5.3-.7.3l.3-4.2 7.7-7c.3-.3-.1-.5-.5-.4l-9.6 3.7-4.1-1.3c-.9-.3-.9-.9.2-1.3l16-6c.8-.3 1.5.2 1.2 1.3z" fill="#fff"/></svg>
       </a>
+      <!-- Messenger -->
       <a href="https://m.me/Imsjmasud" target="_blank" title="Messenger" style="background:#0084ff;">
         <svg viewBox="0 0 32 32" fill="#0084ff"><circle cx="16" cy="16" r="16" fill="#0084ff"/><path d="M11.5 23.3l.6-3.1c-.9-1-1.3-2.1-1.3-3.3 0-3.1 3-5.6 6.7-5.6 3.8 0 6.7 2.5 6.7 5.6 0 3.1-3 5.6-6.7 5.6-1.1 0-2.1-.2-3-.6l-3.4.9zm6.9-5.7l-2.6-2-3.7 3.7 5.6-2.4 2.7 2 3.7-3.7-5.7 2.4z" fill="#fff"/></svg>
       </a>
+      <!-- Instagram -->
       <a href="https://instagram.com/Imsjmasud" target="_blank" title="Instagram" style="background:#E1306C;">
         <svg viewBox="0 0 32 32" fill="#E1306C"><circle cx="16" cy="16" r="16" fill="#E1306C"/><g fill="#fff"><circle cx="16" cy="16" r="5.5"/><circle cx="23.5" cy="8.5" r="1.2"/><path d="M16 11.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 7.5a3 3 0 110-6 3 3 0 010 6z"/></g></svg>
       </a>
@@ -291,10 +256,11 @@
       <a href="https://cdn.botpress.cloud/webchat/v3.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/08/27/05/20250827051045-X296SG6U.json" target="_blank" rel="noopener">Open Botpress Chat in New Tab</a>
     </div>
   </div>
+  <!-- Botpress Widget fixed at right bottom -->
   <div class="botpress-container-fixed" id="botpress-container-fixed">
     <button class="botpress-launcher" id="botpress-launcher" title="Chat with Botpress">
       <svg class="botpress-icon" viewBox="0 0 32 32" fill="#fff">
-        <circle cx="16" cy="16" r="16" fill="#3a668a"/>
+        <circle cx="16" cy="16" r="16" fill="#2b50aa"/>
         <ellipse cx="12" cy="16" rx="2" ry="3" fill="#fff"/>
         <ellipse cx="20" cy="16" rx="2" ry="3" fill="#fff"/>
         <ellipse cx="16" cy="22" rx="5" ry="2" fill="#fff"/>
@@ -305,108 +271,39 @@
       <iframe id="botpress-iframe" src="https://cdn.botpress.cloud/webchat/v3.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/08/27/05/20250827051045-X296SG6U.json" allow="clipboard-write"></iframe>
     </div>
   </div>
-
   <script>
-    // Mousemove shimmer effect
+    // Mousemove effect for moving gradient light
     const overlay = document.getElementById('gradientHover');
     document.addEventListener('mousemove', function(e) {
       const x = (e.clientX / window.innerWidth) * 100;
       const y = (e.clientY / window.innerHeight) * 100;
-      overlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(44,128,192,0.18) 0%, rgba(0,0,0,0.24) 60%, rgba(0,0,0,0.5) 100%)`;
+      overlay.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(120,255,255,0.27) 0%, rgba(0,0,0,0.14) 60%, rgba(0,0,0,0.38) 100%)`;
     });
-
-    // Smoother, less laggy scales with smaller cursor effect area
-    const container = document.getElementById('scale-container');
-    let scales = [];
-    const scaleSize = 44;
-    const scaleOverlap = 36; // more overlap = fewer scales, better perf
-    const radiusOfEffect = 75; // much smaller effect area
-    const pushFactor = 22;
-
-    function createScaleGrid() {
-      container.innerHTML = '';
-      scales = [];
-      const columns = Math.ceil(window.innerWidth / scaleOverlap);
-      const rows = Math.ceil(window.innerHeight / scaleOverlap);
-
-      container.style.gridTemplateColumns = `repeat(${columns}, ${scaleOverlap}px)`;
-      container.style.gridTemplateRows = `repeat(${rows}, ${scaleOverlap}px)`;
-
-      for (let i = 0; i < columns * rows; i++) {
-        const scale = document.createElement('div');
-        scale.classList.add('scale');
-        // Random rotation for realism
-        scale._rot = Math.floor(Math.random() * 360);
-        scale.style.transform = `rotate(${scale._rot}deg)`;
-        container.appendChild(scale);
-        scales.push(scale);
-      }
-    }
-
-    // Animation frame for smoothness
-    let mouseX = -1000, mouseY = -1000; // offscreen at first
-    document.addEventListener('mousemove', function(e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function animateScales() {
-      for (let scale of scales) {
-        const rect = scale.getBoundingClientRect();
-        const scaleCenterX = rect.left + rect.width / 2;
-        const scaleCenterY = rect.top + rect.height / 2;
-
-        const dx = mouseX - scaleCenterX;
-        const dy = mouseY - scaleCenterY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < radiusOfEffect) {
-          const angle = Math.atan2(scaleCenterY - mouseY, scaleCenterX - mouseX);
-          const pushAmount = (1 - distance / radiusOfEffect) * pushFactor;
-
-          const moveX = Math.cos(angle) * pushAmount;
-          const moveY = Math.sin(angle) * pushAmount;
-
-          scale.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${scale._rot}deg)`;
-        } else {
-          scale.style.transform = `translate(0, 0) rotate(${scale._rot}deg)`;
-        }
-      }
-      requestAnimationFrame(animateScales);
-    }
-
-    window.addEventListener('resize', createScaleGrid);
-    createScaleGrid();
-    requestAnimationFrame(animateScales);
 
     // Botpress Widget logic
     const launcher = document.getElementById('botpress-launcher');
     const wrapper = document.getElementById('botpress-iframe-wrapper');
     const closeBtn = document.getElementById('botpress-close');
     let isOpen = false;
-
     launcher.addEventListener('click', function(e) {
       e.stopPropagation();
       wrapper.classList.add('active');
       isOpen = true;
     });
-
     closeBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       wrapper.classList.remove('active');
       isOpen = false;
     });
-
+    // Click outside chat closes it
     document.addEventListener('click', function(e) {
       if (isOpen && !wrapper.contains(e.target) && e.target !== launcher) {
         wrapper.classList.remove('active');
         isOpen = false;
       }
     });
-
-    wrapper.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
+    // Prevent closing when clicking inside iframe or launcher
+    wrapper.addEventListener('click', function(e) { e.stopPropagation(); });
   </script>
 </body>
 </html>
